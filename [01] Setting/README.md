@@ -11,7 +11,6 @@
 
 
 ### node / npm
-
 - [nodejs](https://nodejs.org/ko/)
 
 **프로젝트 시작 (package.json 파일생성)**
@@ -21,9 +20,6 @@ $ npm init -y (생략 한번에)
 ```
 
 ### package.json
-
-- [모두 알지만 모두 모르는 package.json](http://programmingsummaries.tistory.com/385)
-
 ```bash
 $ mkdir [folderName] && cd [folderName]
 $ npm init -y
@@ -124,8 +120,8 @@ module.exports = {
 ```
 
 ### Style, CSS and Sass loaders
-- css-loader: css파일 로드
-- style-loader: html에 브라우저에서 스타일 적용
+- css-loader: css 파일 로드
+- style-loader: html 브라우저에서 스타일 적용
 
 ```bash
 //css-loader, style-loader
