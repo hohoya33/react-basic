@@ -85,7 +85,7 @@ module.exports = {
 
 ### HTML Webpack Plugin
 ```bash
-npm i html-webpack-plugin --save-dev
+$ npm i html-webpack-plugin --save-dev
 ```
 
 ```js
@@ -129,13 +129,13 @@ module.exports = {
 
 ```bash
 //css-loader, style-loader
-npm i css-loader style-loader --save-dev
+$ npm i css-loader style-loader --save-dev
 
 //Sass-loader
-npm i sass-loader node-sass --save-dev
+$ npm i sass-loader node-sass --save-dev
 
 //Scss 순수 css 변환
-npm i extract-text-webpack-plugin --save-dev
+$ npm i extract-text-webpack-plugin --save-dev
 ```
 ```js
 //------ webpack.config.js ------
@@ -168,13 +168,14 @@ module.exports = {
 
 ### Setting up React and Babel
 ```bash
-//React
-npm i react react-dom --save-dev
+//React 설치
+$ npm i react react-dom --save-dev
 
-//Babel
-npm i babel-core babel-loader babel-preset-es2015 babel-preset-react --save-dev
+//Babel 설치
+$ npm i babel-core babel-loader babel-preset-es2015 babel-preset-react --save-dev
 
-touch .babelrc
+//.babelrc 파일생성
+$ touch .babelrc
 ```
 
 ```js
@@ -207,7 +208,7 @@ module.exports = {
 
 ### Webpack Dev Server
 ```bash
-npm i webpack-dev-server --save-dev
+$ npm i webpack-dev-server --save-dev
 ```
 
 ```js
