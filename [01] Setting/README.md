@@ -16,13 +16,10 @@
 **프로젝트 시작 (package.json 파일생성)**
 ```bash
 $ npm init    (enter skip)
-$ npm init -y (생략 한번에)
 ```
-
-### package.json
 ```bash
 $ mkdir [folderName] && cd [folderName]
-$ npm init -y
+$ npm init -y        ( 생략 )
 $ npm i jquery       ( i  === install )
 $ npm i -S jquery    ( -S === --save )
 $ npm i -D jquery    ( -D === --save-dev )
