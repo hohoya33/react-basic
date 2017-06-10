@@ -380,15 +380,26 @@ module.exports = {
 ```
 
 * Icon fonts
+npm run prod 시
+dist 폴더에 fonts 폴더 생성 후 파일을 묶음
+?name=fonts/[name].[ext]
+
 ```js
 //------ webpack.config.js ------
 module.exports = {
     module: {
         rules: [
-            { test: /\.(woff2?|svg)$/, loader: 'url-loader?limit=10000' },
-            { test: /\.(ttf|eot)$/, loader: 'file-loader' }
+            { test: /\.(woff2?|svg)$/, loader: 'url-loader?limit=10000&name=fonts/[name].[ext]' },
+            { test: /\.(ttf|eot)$/, loader: 'file-loader?name=fonts/[name].[ext]' },
         ],
-    }
+    },
+    plugins: [
+        new ExtractTextPlugin({
+            filename: '/css/[name].css',
+            disable: !isProd,
+            allChunks: true
+        }),
+    ]
 }
 ```
 
@@ -407,6 +418,32 @@ module.exports = {
     }
 }
 ```
+
+* Bootstrap Customizations
+
+./node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss
+스타일 커스터마이징
+
+```js
+//------ .bootstraprc ------
+# bootstrapCustomizations: ./path/to/bootstrap/customizations.scss
+//아래 경로로 변경 후 src폴더에 bootstrap폴더 생성 후 customizations.scss 파일 생성
+# bootstrapCustomizations: ./src/bootstrap/customizations.scss
+```
+
+```css
+<!-- app.scss -->
+@import './bootstrap/customizations.scss';
+
+body {
+    h1 {
+        color: $brand-success;
+    }
+}
+```
+
+
+
 
 
 
