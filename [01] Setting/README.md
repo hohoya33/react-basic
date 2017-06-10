@@ -228,3 +228,185 @@ module.exports = {
 ```bash
 $ npm run dev
 ```
+
+
+
+### RimRaf
+* dist 폴더 파일 삭제
+rimraf 명령어를 통해 삭제 가능합니다. 
+먼저 rimraf 모듈을 설치합니다.
+rimraf 명령을 통해 원하는 폴더 경로를 입력해서 삭제합니다.
+
+```bash
+$ npm i rimraf --save-dev
+```
+
+```js
+//------ package.json ------
+ "scripts": {
+	"dev": "webpack-dev-server",
+	"prod": "npm run clean && webpack -p",
+	"clean": "rimraf ./dist/*"
+}
+```
+
+### How to load images with Webpack 2
+```bash
+$ npm i file-loader --save-dev
+$ npm i image-webpack-loader --save-dev
+```
+
+```js
+//------ webpack.config.js ------
+module: {
+    rules: [
+        { 
+            test: /\.(jpe?g|png|gif|svg)$/i, 
+            use: [
+                    'file-loader?name=images/[name].[ext]',
+                    'image-webpack-loader' 
+            ]
+        }
+    ],
+}
+```
+
+
+## Hot Module Replacement - CSS
+
+```js
+//------ webpack.config.js ------
+var webpack = require('webpack');
+
+module.exports = {
+    module: {
+        rules: [
+            {
+                test: /\.scss$/,
+                use: ['style-loader', 'css-loader?sourceMap', 'sass-loader']
+            }
+        ],
+    },
+    devServer: {
+        contentBase: path.join(__dirname, "dist"),
+        compress: true,
+        port: 8080,
+        stats: "errors-only",
+        hot: true,
+        open: true
+    },
+    plugins: [
+        new ExtractTextPlugin({
+            filename: 'app.css',
+            disable: true,
+            allChunks: true
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin()
+    ]
+}
+```
+
+
+### Production vs Development Environment
+
+```js
+//------ package.json ------
+"scripts": {
+	"dev": "webpack-dev-server",
+	"prod": "npm run clean && NODE_ENV=production webpack -p",
+	"clean": "rimraf ./dist/*"
+}
+```
+
+```js
+//------ webpack.config.js ------
+var isProd = process.env.NODE_ENV === 'production'; //true or false
+
+var cssDev = ['style-loader', 'css-loader?sourceMap', 'sass-loader'];
+var cssProd = ExtractTextPlugin.extract({
+    fallback: 'style-loader',
+    use: ['css-loader','sass-loader'],
+    publicPath: '/dist'
+});
+
+var cssConfig = isProd ? cssProd : cssDev;
+
+module.exports = {
+    module: {
+        rules: [
+            {
+                test: /\.scss$/,
+                use: cssConfig
+            }
+        ],
+    },
+    plugins: [
+        new ExtractTextPlugin({
+            filename: 'app.css',
+            disable: !isProd,
+            allChunks: true
+        })
+    ]
+}
+```
+
+
+### Bootstrap Load
+```bash
+$ npm i bootstrap-loader --save-dev
+$ npm i bootstrap-sass --save-dev
+$ npm i resolve-url-loader url-loader --save-dev
+```
+* create .bootstraprc file in the root folder
+https://raw.githubusercontent.com/shakacode/bootstrap-loader/master/.bootstraprc-3-default
+
+* create webpack.bootstrap.config.js
+https://raw.githubusercontent.com/shakacode/bootstrap-loader/master/examples/basic/webpack.bootstrap.config.js
+
+```js
+//------ webpack.config.js ------
+var isProd = process.env.NODE_ENV === 'production'; //true or false
+
+var bootstrapEntryPoints = require('./webpack.bootstrap.config');
+var bootstrapConfig = isProd ? bootstrapEntryPoints.prod : bootstrapEntryPoints.dev;
+
+module.exports = {
+    entry: {
+        index: './src/index.js',
+        bootstrap: bootstrapConfig
+    }
+}
+```
+
+* Icon fonts
+```js
+//------ webpack.config.js ------
+module.exports = {
+    module: {
+        rules: [
+            { test: /\.(woff2?|svg)$/, loader: 'url-loader?limit=10000' },
+            { test: /\.(ttf|eot)$/, loader: 'file-loader' }
+        ],
+    }
+}
+```
+
+* jQuery
+```bash
+$ npm i imports-loader jquery --save-dev
+```
+
+```js
+//------ webpack.config.js ------
+module.exports = {
+    module: {
+        rules: [
+            { test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports-loader?jQuery=jquery' }
+        ],
+    }
+}
+```
+
+
+
